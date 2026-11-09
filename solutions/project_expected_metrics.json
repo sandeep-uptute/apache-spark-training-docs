@@ -1,0 +1,43 @@
+{
+  "run-001": {
+    "raw_rows": 12,
+    "duplicate_rows": 0,
+    "unique_rows": 12,
+    "quality_rejected_rows": 0,
+    "valid_rows": 12,
+    "non_completed_rows": 2,
+    "reference_rejected_rows": 0,
+    "rejected_rows": 0,
+    "accepted_sales_rows": 10,
+    "accepted_revenue": "41383.00"
+  },
+  "run-002": {
+    "raw_rows": 10,
+    "duplicate_rows": 1,
+    "unique_rows": 9,
+    "quality_rejected_rows": 2,
+    "valid_rows": 7,
+    "non_completed_rows": 2,
+    "reference_rejected_rows": 2,
+    "rejected_rows": 4,
+    "accepted_sales_rows": 3,
+    "accepted_revenue": "30995.00"
+  },
+  "run-003": {
+    "raw_rows": 9,
+    "duplicate_rows": 0,
+    "unique_rows": 9,
+    "quality_rejected_rows": 0,
+    "valid_rows": 9,
+    "non_completed_rows": 1,
+    "reference_rejected_rows": 0,
+    "rejected_rows": 0,
+    "accepted_sales_rows": 8,
+    "accepted_revenue": "31435.00"
+  },
+  "all-runs": {
+    "accepted_sales_rows": 21,
+    "accepted_revenue": "103813.00"
+  }
+}
+

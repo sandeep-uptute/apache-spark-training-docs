@@ -1,0 +1,11 @@
+{"transaction_id":"R2-001","transaction_date":"2026-10-07","customer_id":"C001","product_id":"P005","quantity":"2","unit_price":"2499.00","status":"COMPLETED"}
+{"transaction_id":"R2-002","transaction_date":"2026-10-07","customer_id":"C002","product_id":"P008","quantity":"1","unit_price":"12999.00","status":"COMPLETED"}
+{"transaction_id":"R2-003","transaction_date":"2026-10-08","customer_id":"C003","product_id":"P002","quantity":"two","unit_price":"2299.00","status":"COMPLETED"}
+{"transaction_id":"R2-004","transaction_date":"2026-10-08","customer_id":"C004","product_id":"P999","quantity":"1","unit_price":"5000.00","status":"COMPLETED"}
+{"transaction_id":"R2-005","transaction_date":"2026-10-08","customer_id":"C999","product_id":"P003","quantity":"1","unit_price":"799.00","status":"COMPLETED"}
+{"transaction_id":"R2-006","transaction_date":"2026-10-08","customer_id":"C006","product_id":"","quantity":"1","unit_price":"2999.00","status":"COMPLETED"}
+{"transaction_id":"R2-007","transaction_date":"2026-10-08","customer_id":"C007","product_id":"P010","quantity":"1","unit_price":"599.00","status":"CANCELLED"}
+{"transaction_id":"R2-008","transaction_date":"2026-10-08","customer_id":"C008","product_id":"P011","quantity":"2","unit_price":"6499.00","status":"COMPLETED"}
+{"transaction_id":"R2-008","transaction_date":"2026-10-08","customer_id":"C008","product_id":"P011","quantity":"2","unit_price":"6499.00","status":"COMPLETED"}
+{"transaction_id":"R2-009","transaction_date":"2026-10-08","customer_id":"C009","product_id":"P001","quantity":"1","unit_price":"1499.00","status":"RETURNED"}
+

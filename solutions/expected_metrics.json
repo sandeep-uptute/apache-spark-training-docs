@@ -1,0 +1,32 @@
+{
+  "raw_rows": 58,
+  "unique_transaction_rows": 57,
+  "clean_rows": 50,
+  "rejected_for_type_or_missing_value": 7,
+  "completed_valid_reference_rows": 36,
+  "total_completed_revenue": "342228.00",
+  "category_summary": {
+    "Accessories": {
+      "revenue": "52574.00",
+      "orders": 16
+    },
+    "Audio": {
+      "revenue": "20992.00",
+      "orders": 4
+    },
+    "Electronics": {
+      "revenue": "265968.00",
+      "orders": 12
+    },
+    "Stationery": {
+      "revenue": "2694.00",
+      "orders": 4
+    }
+  },
+  "unmatched_product_ids": [
+    "P999"
+  ],
+  "unmatched_customer_ids": [
+    "C999"
+  ]
+}

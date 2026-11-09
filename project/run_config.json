@@ -1,0 +1,8 @@
+{
+  "runs": [
+    {"run_id": "run-001", "format": "csv", "path": "source/run-001/transactions.csv", "scenario": "Clean initial batch"},
+    {"run_id": "run-002", "format": "json", "path": "source/run-002/transactions.json", "scenario": "Duplicate, malformed and unmatched records"},
+    {"run_id": "run-003", "format": "tsv", "path": "source/run-003/transactions.tsv", "scenario": "Corrected records plus new sales"}
+  ]
+}
+
