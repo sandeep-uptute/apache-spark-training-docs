@@ -1,4 +1,4 @@
-"""Shared, beginner-readable PySpark helpers for the Spark 4.1 Ubuntu workshop.
+"""Shared PySpark helpers for the Spark 4.1 Ubuntu course.
 
 The module intentionally uses the DataFrame API instead of pandas or Python UDFs.
 """
@@ -8,14 +8,14 @@ import sys
 
 
 def project_root():
-    """Support notebooks opened from either project root or notebooks/ folder."""
+    """Support notebooks opened from the course root or a numbered section folder."""
     for base in (Path.cwd(), *Path.cwd().parents):
         if (base / 'data' / 'transactions.csv').is_file():
             return base
-    raise FileNotFoundError('Could not find data/transactions.csv. Launch Jupyter in the workshop folder.')
+    raise FileNotFoundError('Could not find data/transactions.csv. Launch Jupyter in the course folder.')
 
 
-def create_spark(name='TG117-Spark-Workshop'):
+def create_spark(name='PySpark-Course'):
     from pyspark.sql import SparkSession
     os.environ['PYSPARK_PYTHON'] = sys.executable
     os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
