@@ -66,13 +66,34 @@ df.createOrReplaceTempView("sales")
 spark.sql("SELECT category, SUM(line_total) revenue FROM sales GROUP BY category")
 ```
 
+Temporary views exist only in the current Spark session unless a global temporary view or catalog table is created explicitly.
+
 ## Join
 
 ```python
 left.join(right, "key", "inner")
 left.join(right, "key", "left")
+left.join(right, "key", "right")
+left.join(right, "key", "full")
+left.join(right, "key", "left_semi")
 left.join(right, "key", "left_anti")
 left.join(F.broadcast(small_dimension), "key", "left")
+```
+
+## Set, pivot and window operations
+
+```python
+first.unionByName(second, allowMissingColumns=True)
+first.intersect(second)
+first.exceptAll(second)
+
+df.groupBy("city").pivot("category").sum("revenue")
+
+from pyspark.sql.window import Window
+rank_window = Window.partitionBy("department").orderBy(F.desc("salary"))
+df.withColumn("row_number", F.row_number().over(rank_window))
+df.withColumn("rank", F.rank().over(rank_window))
+df.withColumn("dense_rank", F.dense_rank().over(rank_window))
 ```
 
 ## Partition and cache

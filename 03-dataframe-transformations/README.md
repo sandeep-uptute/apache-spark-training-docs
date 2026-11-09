@@ -6,6 +6,15 @@
 
 After this section, you can choose columns with `select`, keep rows with `filter`, create columns with `withColumn`, rename expressions with `alias`, and sort results with `orderBy`.
 
+## DataFrame API and literal SQL
+
+DataFrame transformations and SQL clauses can express the same intent. In the lab, each DataFrame result is followed by a temporary-view query using `SELECT`, `WHERE`, derived expressions and `ORDER BY`.
+
+```python
+orders.createOrReplaceTempView("orders")
+spark.sql("SELECT order_id, amount FROM orders WHERE amount > 100 ORDER BY amount DESC").show()
+```
+
 ## 1. Select the columns you need
 
 ```python

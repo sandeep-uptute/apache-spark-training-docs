@@ -6,6 +6,17 @@
 
 After this section, you can explain the driver, executors, jobs, stages, tasks and partitions; distinguish transformations from actions; and describe what `local[2]` means.
 
+## DataFrame API and literal SQL
+
+Every exercise first builds a result with the DataFrame API and then reproduces it with literal SQL. A temporary view gives the in-memory DataFrame a name that SQL can use:
+
+```python
+people_df.createOrReplaceTempView("people")
+spark.sql("SELECT person_id, name FROM people ORDER BY person_id").show()
+```
+
+The temporary view belongs to the current Spark session; it does not copy the data into a new file.
+
 ## Architecture
 
 ```mermaid

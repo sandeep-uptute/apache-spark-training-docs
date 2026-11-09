@@ -6,6 +6,17 @@
 
 After this section, you can create a `SparkSession`, read CSV, TSV, JSON and Parquet, inspect schemas and counts, and explain why Spark output paths contain part files.
 
+## DataFrame API and literal SQL
+
+After a file is read into a DataFrame, register it as a temporary view and query the same rows with SQL:
+
+```python
+transactions.createOrReplaceTempView("transactions")
+spark.sql("SELECT * FROM transactions LIMIT 5").show()
+```
+
+Each lab activity shows both routes so that schema and file-format behaviour can be compared without switching notebooks.
+
 ## Start a Spark session
 
 ```python

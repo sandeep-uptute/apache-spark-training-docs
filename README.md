@@ -38,7 +38,7 @@ This course follows one continuous path from Spark fundamentals to a complete mu
 3. Answer the section quiz without running additional code.
 4. Continue to the next numbered section.
 
-Each section begins with one Spark session setup cell. Run it once, then complete the five exercises in order. Every exercise is divided into short, explained steps so each new operation builds on an operation already covered.
+Each section begins with one Spark session setup cell. Run it once, then complete the exercises in order. Every exercise is divided into short, explained steps so each new operation builds on an operation already covered. After the DataFrame API route, run the paired literal SQL solution over a temporary view and compare the two results. Every section quiz contains at least five multiple-choice questions.
 
 Start Jupyter from this folder so that all relative paths resolve correctly:
 

@@ -2,10 +2,53 @@
 
 [← Section notes](README.md) · [Course syllabus](../README.md)
 
-1. Which keys survive an inner join?
-2. What is preserved by a left join? What is preserved by a right join?
-3. How does a full outer join differ from a left join?
-4. When would you use a left-semi join?
-5. Which join returns unmatched left rows?
-6. How can duplicate reference keys inflate a later aggregation?
+Choose one answer for each question.
 
+### MCQ 1
+
+Which keys survive an inner join?
+
+- A. Keys matched on both sides
+- B. Every left-side key
+- C. Every right-side key
+- D. Only unmatched keys
+
+### MCQ 2
+
+What does a left join preserve?
+
+- A. Only matched right rows
+- B. Every left row
+- C. Every right row
+- D. Only duplicate keys
+
+### MCQ 3
+
+Which join returns all matched and unmatched rows from both sides?
+
+- A. Inner
+- B. Left semi
+- C. Full outer
+- D. Left anti
+
+### MCQ 4
+
+Which join returns left rows whose keys exist on the right without adding right-side columns?
+
+- A. Left semi
+- B. Right outer
+- C. Cross
+- D. Left anti
+
+### MCQ 5
+
+Which join is useful for finding unmatched left rows?
+
+- A. Inner
+- B. Left semi
+- C. Left anti
+- D. Right outer
+
+## Review prompt
+
+Explain how duplicate keys in a reference dataset can inflate a later aggregation.

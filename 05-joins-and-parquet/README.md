@@ -6,6 +6,10 @@
 
 After this section, you can explain and apply inner, left, right, full outer, left-semi and left-anti joins; check join-key uniqueness; and save a joined result as Parquet.
 
+## DataFrame API and literal SQL
+
+Every join is shown with both `DataFrame.join(...)` and a literal SQL join over temporary views. The paired queries use the same join keys and selected columns, making inner, left, right, full, left-semi and left-anti behaviour directly comparable.
+
 ## Join inputs
 
 ```mermaid

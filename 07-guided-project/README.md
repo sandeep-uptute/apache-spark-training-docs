@@ -2,6 +2,10 @@
 
 [← Previous section](../06-advanced-dataframes-and-quality/README.md) · [Course syllabus](../README.md) · [Open project lab](LAB.ipynb) · [Project review](QUIZ.md)
 
+## DataFrame API and literal SQL
+
+Each project stage runs through the DataFrame API and then repeats the same business logic with temporary views and literal SQL. Both routes validate the same accepted-row counts and revenue so that the completed pipeline is checked, not merely displayed.
+
 ## Goal
 
 Build and run a repeatable batch pipeline that reads three source formats, validates transactions, joins reference data, writes partitioned Parquet and produces an audit and visual report for every run.

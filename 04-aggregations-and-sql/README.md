@@ -6,6 +6,10 @@
 
 After this section, you can group rows, calculate several measures, group by more than one column, sort summaries and express the same aggregation with Spark SQL.
 
+## DataFrame API and literal SQL
+
+Each aggregation is implemented twice: once with `groupBy().agg()` and once with a literal `GROUP BY` query over a temporary view. Compare the result schema, values and execution plan rather than treating the two routes as separate exercises.
+
 ## 1. Count rows in each group
 
 ```python

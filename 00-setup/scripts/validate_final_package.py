@@ -39,10 +39,16 @@ def validate_notebook(path: Path) -> None:
     assert "SparkSession.builder" in code_sources[0], f"First code cell must create Spark: {path}"
     text = path.read_text(encoding="utf-8")
     if path.parent.name == "07-guided-project":
-        assert text.count("## Stage ") >= 5, f"Expected five project stages: {path}"
+        activity_count = text.count("## Stage ")
+        assert activity_count >= 5, f"Expected five project stages: {path}"
     else:
-        assert text.count("## Exercise ") >= 5, f"Expected five exercises: {path}"
+        activity_count = text.count("## Exercise ")
+        assert activity_count >= 5, f"Expected five exercises: {path}"
     assert text.count("### Step ") >= 15, f"Expected step-by-step activities: {path}"
+    paired_count = text.count("### Paired literal SQL solution") + text.count("### DataFrame API comparison")
+    assert paired_count == activity_count, f"Every activity needs a paired DataFrame/SQL route: {path}"
+    assert text.count("createOrReplaceTempView") >= activity_count, f"Temporary views missing from SQL routes: {path}"
+    assert text.count("spark.sql") >= activity_count, f"Literal SQL missing from activity routes: {path}"
 
 
 def main() -> None:
@@ -66,6 +72,8 @@ def main() -> None:
 
     for section in SECTIONS:
         validate_notebook(ROOT / section / "LAB.ipynb")
+        quiz = (ROOT / section / "QUIZ.md").read_text(encoding="utf-8")
+        assert quiz.count("### MCQ ") >= 5, f"Expected at least five MCQs: {section}"
 
     schema_lab = (ROOT / "02-reading-data" / "LAB.ipynb").read_text(encoding="utf-8")
     assert "inferSchema" in schema_lab and "StructType" in schema_lab

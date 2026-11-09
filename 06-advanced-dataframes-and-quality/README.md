@@ -6,6 +6,10 @@
 
 After this section, you can combine compatible DataFrames, compare row sets, pivot an aggregation, classify invalid records, inspect execution plans and calculate ranking and analytical window measures.
 
+## DataFrame API and literal SQL
+
+Every activity includes a paired SQL route. The queries cover set operators, `PIVOT`, quality-rule expressions, plan inspection and window functions such as `ROW_NUMBER`, `RANK`, `DENSE_RANK`, running `SUM` and `LAG`.
+
 ## 1. Append rows with union
 
 ```python
