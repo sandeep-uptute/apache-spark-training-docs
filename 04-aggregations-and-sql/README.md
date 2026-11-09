@@ -1,79 +1,68 @@
 # Section 04 — Aggregations and Spark SQL
 
-[← Previous section](../03-dataframes-and-quality/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Next section →](../05-joins-and-parquet/README.md)
+[← Previous section](../03-dataframe-transformations/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Next section →](../05-joins-and-parquet/README.md)
 
 ## Outcomes
 
-After this section, you can define a business metric, create grouped summaries with the DataFrame API, query a temporary view with Spark SQL and reconcile both results.
+After this section, you can group rows, calculate several measures, group by more than one column, sort summaries and express the same aggregation with Spark SQL.
 
-## Define the metric first
-
-For this course:
-
-```text
-line_total = qty × price
-
-reported revenue = sum(line_total)
-for completed, quality-valid and reference-matched transactions
-```
-
-A technically valid aggregation can still be wrong when its business filters are incomplete.
-
-## DataFrame aggregation
+## 1. Count rows in each group
 
 ```python
-from pyspark.sql import functions as F
+status_counts = transactions.groupBy("status").count()
+```
 
-summary = (
-    sales.groupBy("category")
-    .agg(
-        F.countDistinct("transaction_id").alias("orders"),
-        F.sum("qty").alias("units"),
-        F.sum("line_total").alias("revenue"),
-    )
-    .orderBy(F.desc("revenue"))
+The input contains transaction rows. The output contains one row for each status.
+
+## 2. Calculate several measures
+
+```python
+summary = sales.groupBy("category").agg(
+    F.count("*").alias("lines"),
+    F.sum("quantity").alias("units"),
+    F.avg("unit_price").alias("average_price"),
+    F.min("unit_price").alias("minimum_price"),
+    F.max("unit_price").alias("maximum_price")
 )
 ```
 
-An aggregation changes the level of detail. Transaction rows become one row per category.
+Each expression describes one output measure at the category level.
 
-## Spark SQL
+## 3. Group by more than one column
+
+```python
+daily_category = sales.groupBy("order_date", "category").agg(
+    F.sum("revenue").alias("revenue")
+)
+```
+
+The result now contains one row for each date-and-category combination.
+
+## 4. Sort a summary
+
+```python
+ranked = summary.orderBy(F.desc("revenue"), F.asc("category"))
+```
+
+`orderBy` is already familiar from Section 03. Here it is applied to aggregated rows.
+
+## 5. Express the same logic with SQL
 
 ```python
 sales.createOrReplaceTempView("sales")
 
-summary_sql = spark.sql("""
-    SELECT category,
-           COUNT(DISTINCT transaction_id) AS orders,
-           SUM(qty) AS units,
-           SUM(line_total) AS revenue
-    FROM sales
-    GROUP BY category
-    ORDER BY revenue DESC
+result = spark.sql("""
+SELECT category,
+       COUNT(*) AS lines,
+       SUM(quantity) AS units,
+       SUM(revenue) AS revenue
+FROM sales
+GROUP BY category
+ORDER BY revenue DESC
 """)
 ```
 
-SQL and DataFrame expressions both become logical plans processed by Spark's optimizer.
+The DataFrame API and Spark SQL both create logical plans for Spark to optimize.
 
-## Why grouping shuffles
-
-```mermaid
-flowchart LR
-  P1[Partition 1] --> S{Redistribute by category}
-  P2[Partition 2] --> S
-  P3[Partition 3] --> S
-  S --> C1[Accessories]
-  S --> C2[Audio]
-  S --> C3[Electronics]
-```
-
-Rows with the same grouping key must reach the same output partition. This redistribution is a shuffle.
-
-## Reconciliation
-
-Compare category totals, overall revenue and row counts. Matching DataFrame and SQL outputs provide useful evidence, but both must also match the stated business definition.
-
-## Continue
-
-Run [LAB.ipynb](LAB.ipynb), then complete [QUIZ.md](QUIZ.md).
+Complete [LAB.ipynb](LAB.ipynb), then answer [QUIZ.md](QUIZ.md).
 

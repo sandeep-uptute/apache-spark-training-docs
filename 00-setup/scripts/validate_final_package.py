@@ -11,10 +11,10 @@ ROOT = Path(__file__).resolve().parents[2]
 SECTIONS = [
     "01-spark-foundations",
     "02-reading-data",
-    "03-dataframes-and-quality",
+    "03-dataframe-transformations",
     "04-aggregations-and-sql",
     "05-joins-and-parquet",
-    "06-execution-and-optimization",
+    "06-advanced-dataframes-and-quality",
     "07-guided-project",
 ]
 
@@ -35,7 +35,6 @@ def validate_notebook(path: Path) -> None:
             ast.parse(source, filename=f"{path.name}:cell{index}")
             forbidden = ("training_lib", "project.pipeline", "sys.path", "Path.cwd")
             assert not any(term in source for term in forbidden), f"Hidden setup/helper found in {path}:cell{index}"
-    assert len(code_sources) == 6, f"Expected one setup plus five activities: {path}"
     assert sum("SparkSession.builder" in source for source in code_sources) == 1, f"Expected one Spark session: {path}"
     assert "SparkSession.builder" in code_sources[0], f"First code cell must create Spark: {path}"
     text = path.read_text(encoding="utf-8")
@@ -43,6 +42,7 @@ def validate_notebook(path: Path) -> None:
         assert text.count("## Stage ") >= 5, f"Expected five project stages: {path}"
     else:
         assert text.count("## Exercise ") >= 5, f"Expected five exercises: {path}"
+    assert text.count("### Step ") >= 15, f"Expected step-by-step activities: {path}"
 
 
 def main() -> None:
@@ -69,6 +69,15 @@ def main() -> None:
 
     schema_lab = (ROOT / "02-reading-data" / "LAB.ipynb").read_text(encoding="utf-8")
     assert "inferSchema" in schema_lab and "StructType" in schema_lab
+    for section in SECTIONS[:3]:
+        text = (ROOT / section / "LAB.ipynb").read_text(encoding="utf-8")
+        assert ".groupBy(" not in text, f"Aggregation introduced too early: {section}"
+    for section in SECTIONS[:4]:
+        text = (ROOT / section / "LAB.ipynb").read_text(encoding="utf-8")
+        assert ".join(" not in text, f"Join introduced too early: {section}"
+    advanced_lab = (ROOT / "06-advanced-dataframes-and-quality" / "LAB.ipynb").read_text(encoding="utf-8")
+    for required_term in ("unionByName", "intersect", "exceptAll", ".pivot(", "row_number", "dense_rank", "rowsBetween"):
+        assert required_term in advanced_lab, f"Missing advanced operation: {required_term}"
 
     ast.parse((ROOT / "07-guided-project" / "project" / "pipeline.py").read_text(encoding="utf-8"), filename="pipeline.py")
     json.loads((ROOT / "07-guided-project" / "project" / "run_config.json").read_text(encoding="utf-8"))

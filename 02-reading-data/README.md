@@ -1,6 +1,6 @@
 # Section 02 — Reading data
 
-[← Previous section](../01-spark-foundations/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Next section →](../03-dataframes-and-quality/README.md)
+[← Previous section](../01-spark-foundations/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Next section →](../03-dataframe-transformations/README.md)
 
 ## Outcomes
 

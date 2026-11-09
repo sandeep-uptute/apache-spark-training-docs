@@ -2,10 +2,10 @@
 
 [← Section notes](README.md) · [Course syllabus](../README.md)
 
-1. What is the level of detail before and after grouping by category?
-2. Why must the revenue definition be written before the aggregation?
-3. What does `countDistinct("transaction_id")` measure?
-4. What is the lifetime of a temporary view created with `createOrReplaceTempView`?
-5. Why can equivalent SQL and DataFrame expressions have similar plans?
-6. Why does `groupBy` commonly require a shuffle?
+1. How does `groupBy` change the level of detail?
+2. What is the difference between `count("*")` and `countDistinct("order_id")`?
+3. What does grouping by both date and category produce?
+4. Why is `orderBy` applied after aggregation when ranking categories?
+5. What must be created before a DataFrame can be queried by name in Spark SQL?
+6. Why can equivalent SQL and DataFrame expressions produce similar plans?
 

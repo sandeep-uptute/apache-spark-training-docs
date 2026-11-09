@@ -1,6 +1,6 @@
 # Section 07 — Guided e-commerce pipeline
 
-[← Previous section](../06-execution-and-optimization/README.md) · [Course syllabus](../README.md) · [Open project lab](LAB.ipynb) · [Project review](QUIZ.md)
+[← Previous section](../06-advanced-dataframes-and-quality/README.md) · [Course syllabus](../README.md) · [Open project lab](LAB.ipynb) · [Project review](QUIZ.md)
 
 ## Goal
 

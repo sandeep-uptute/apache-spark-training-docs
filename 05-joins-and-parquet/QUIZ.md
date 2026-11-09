@@ -2,10 +2,10 @@
 
 [← Section notes](README.md) · [Course syllabus](../README.md)
 
-1. Which join returns only unmatched transaction rows?
-2. Why should missing reference keys be inspected before an inner join?
-3. How can duplicate product keys inflate revenue?
-4. What does `mode("overwrite")` do to the selected destination path?
-5. Why is transaction ID a poor Parquet partition column?
-6. What should be validated after reading the written Parquet back?
+1. Which keys survive an inner join?
+2. What is preserved by a left join? What is preserved by a right join?
+3. How does a full outer join differ from a left join?
+4. When would you use a left-semi join?
+5. Which join returns unmatched left rows?
+6. How can duplicate reference keys inflate a later aggregation?
 

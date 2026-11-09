@@ -1,72 +1,74 @@
 # Section 05 — Joins and Parquet output
 
-[← Previous section](../04-aggregations-and-sql/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Next section →](../06-execution-and-optimization/README.md)
+[← Previous section](../04-aggregations-and-sql/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Next section →](../06-advanced-dataframes-and-quality/README.md)
 
 ## Outcomes
 
-After this section, you can select a join type, identify unmatched keys, protect totals from duplicate reference keys and publish partitioned Parquet.
+After this section, you can explain and apply inner, left, right, full outer, left-semi and left-anti joins; check join-key uniqueness; and save a joined result as Parquet.
 
-## Data relationships
+## Join inputs
 
 ```mermaid
 erDiagram
-  TRANSACTIONS }o--|| CUSTOMERS : customer_id
   TRANSACTIONS }o--|| PRODUCTS : product_id
-  TRANSACTIONS {
-    string transaction_id
-    string customer_id
-    string product_id
-    int qty
-    decimal price
-  }
+  TRANSACTIONS }o--|| CUSTOMERS : customer_id
 ```
 
-Transactions hold business events. Customers and products provide descriptive reference attributes.
+A join matches rows using one or more key columns.
 
-## Join choices
+## Inner join
 
-| Join | Result |
-|---|---|
-| Inner | Only matching rows |
-| Left | Every left row plus matching right columns |
-| Left anti | Only left rows without a match |
-| Left semi | Matching left rows without adding right columns |
+Keeps keys present on both sides.
 
 ```python
-unknown_products = transactions.join(products, "product_id", "left_anti")
-enriched = transactions.join(products, "product_id", "inner")
+matched = transactions.join(products, "product_id", "inner")
 ```
 
-Use a left or left-anti join to inspect missing references before an inner join removes them.
-
-## Join multiplication
-
-Reference keys must be unique. If one `product_id` occurs twice in the product table, one transaction can match twice and inflate later counts or revenue.
+## Left and right joins
 
 ```python
-duplicates = products.groupBy("product_id").count().filter("count > 1")
+all_transactions = transactions.join(products, "product_id", "left")
+all_products = transactions.join(products, "product_id", "right")
 ```
 
-## Write partitioned Parquet
+- Left join preserves every left-side row.
+- Right join preserves every right-side row.
+- Missing columns from the other side contain null.
+
+## Full outer join
 
 ```python
-(sales.write
- .mode("overwrite")
- .partitionBy("order_month")
- .parquet("output/curated_sales"))
+all_keys = transactions.join(products, "product_id", "full_outer")
 ```
 
-```text
-curated_sales/
-├── order_month=2026-10/
-│   ├── part-00000-....parquet
-│   └── part-00001-....parquet
-└── _SUCCESS
+Preserves unmatched rows from both sides.
+
+## Left-semi and left-anti joins
+
+```python
+known = transactions.join(products, "product_id", "left_semi")
+unknown = transactions.join(products, "product_id", "left_anti")
 ```
 
-Read the destination back and verify schema, row count and business totals. Avoid partitioning by a nearly unique value such as transaction ID.
+- Left-semi returns matching left rows without adding right-side columns.
+- Left-anti returns only unmatched left rows.
 
-## Continue
+## Join cardinality
 
-Run [LAB.ipynb](LAB.ipynb), then complete [QUIZ.md](QUIZ.md).
+Duplicate reference keys can multiply rows. Check uniqueness before using the joined result in a total:
+
+```python
+products.groupBy("product_id").count().filter("count > 1")
+```
+
+## Save and verify
+
+```python
+enriched.write.mode("overwrite").parquet("output/enriched_sales")
+check = spark.read.parquet("output/enriched_sales")
+```
+
+Verify the schema and row count after reading the destination.
+
+Complete [LAB.ipynb](LAB.ipynb), then answer [QUIZ.md](QUIZ.md).
 
