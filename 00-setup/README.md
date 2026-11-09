@@ -42,8 +42,12 @@ import sys
 print(sys.executable)
 print(sys.version)
 
-from training_lib import create_spark
-spark = create_spark("environment-check")
+from pyspark.sql import SparkSession
+spark = (SparkSession.builder
+         .master("local[2]")
+         .appName("environment-check")
+         .config("spark.sql.shuffle.partitions", "4")
+         .getOrCreate())
 print(spark.version)
 print(spark.sparkContext.master)
 ```

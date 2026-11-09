@@ -9,12 +9,17 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "07-guided-project"))
 
-from training_lib import create_spark
+from pyspark.sql import SparkSession
 from project.pipeline import run_pipeline, write_combined_report
 
 
 def main() -> None:
-    spark = create_spark("multi-run-project-smoke-test")
+    spark = (SparkSession.builder.master("local[2]")
+             .appName("multi-run-project-smoke-test")
+             .config("spark.sql.shuffle.partitions", "4")
+             .config("spark.sql.adaptive.enabled", "true")
+             .config("spark.sql.session.timeZone", "UTC")
+             .getOrCreate())
     project_path = ROOT / "07-guided-project" / "project"
     expected = json.loads((project_path / "validation" / "expected_metrics.json").read_text(encoding="utf-8"))
     try:

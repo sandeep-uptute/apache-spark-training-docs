@@ -29,11 +29,15 @@ def validate_notebook(path: Path) -> None:
     assert book.get("nbformat") == 4 and book.get("cells"), path
     for index, cell in enumerate(book["cells"], start=1):
         if cell.get("cell_type") == "code":
-            ast.parse("".join(cell.get("source", [])), filename=f"{path.name}:cell{index}")
+            source = "".join(cell.get("source", []))
+            ast.parse(source, filename=f"{path.name}:cell{index}")
+            assert "SparkSession.builder" in source, f"Code cell {index} is not standalone: {path}"
+            forbidden = ("training_lib", "project.pipeline", "sys.path", "Path.cwd")
+            assert not any(term in source for term in forbidden), f"Hidden setup/helper found in {path}:cell{index}"
 
 
 def main() -> None:
-    required = [ROOT / "README.md", ROOT / "training_lib.py", ROOT / "00-setup" / "README.md"]
+    required = [ROOT / "README.md", ROOT / "00-setup" / "README.md"]
     for section in SECTIONS:
         required.extend([
             ROOT / section / "README.md",
@@ -54,7 +58,9 @@ def main() -> None:
     for section in SECTIONS:
         validate_notebook(ROOT / section / "LAB.ipynb")
 
-    ast.parse((ROOT / "training_lib.py").read_text(encoding="utf-8"), filename="training_lib.py")
+    schema_lab = (ROOT / "02-reading-data" / "LAB.ipynb").read_text(encoding="utf-8")
+    assert "inferSchema" in schema_lab and "StructType" in schema_lab
+
     ast.parse((ROOT / "07-guided-project" / "project" / "pipeline.py").read_text(encoding="utf-8"), filename="pipeline.py")
     json.loads((ROOT / "07-guided-project" / "project" / "run_config.json").read_text(encoding="utf-8"))
     json.loads((ROOT / "07-guided-project" / "project" / "validation" / "expected_metrics.json").read_text(encoding="utf-8"))

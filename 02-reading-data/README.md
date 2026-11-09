@@ -39,6 +39,20 @@ parquet_df = spark.read.parquet("output/products_parquet")
 
 Use `printSchema()`, `show()` and `count()` to verify the result. Remember that `show()` and `count()` are actions.
 
+## Default types, inferred types and explicit types
+
+```python
+# CSV columns remain strings unless a schema is supplied or inferred.
+default_df = spark.read.option("header", True).csv(path)
+
+# Spark examines the input and chooses types from the observed values.
+inferred_df = (spark.read.option("header", True)
+               .option("inferSchema", True)
+               .csv(path))
+```
+
+`inferSchema=True` is convenient during exploration, but malformed or changing input can produce an unexpected type. Compare both schemas in the lab before using the explicit schema below.
+
 ## Explicit schemas
 
 ```python

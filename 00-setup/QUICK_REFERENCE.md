@@ -113,16 +113,13 @@ path → schema → preview → stage counts → reject reasons
 - silently dropping malformed or unmatched records
 - assuming local mode represents cluster performance
 
-## Project commands
+## Project outputs
 
-```python
-import sys
-sys.path.insert(0, str(ROOT / "07-guided-project"))
-from project.pipeline import run_pipeline, write_combined_report
-
-PROJECT = ROOT / "07-guided-project" / "project"
-metrics, report = run_pipeline(spark, "run-001", PROJECT)
-all_report = write_combined_report(spark, PROJECT)
+```text
+07-guided-project/project/destination/curated_sales/
+07-guided-project/project/destination/rejected_records/
+07-guided-project/project/destination/audit/
+07-guided-project/project/reports/
 ```
 
 Expected combined project output: **21 accepted sales · 103,813.00 revenue units**.
