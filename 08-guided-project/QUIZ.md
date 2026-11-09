@@ -1,4 +1,4 @@
-# Section 07 project review
+# Section 08 project review
 
 [← Project notes](README.md) · [Course syllabus](../README.md)
 

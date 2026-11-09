@@ -7,7 +7,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "07-guided-project"))
+sys.path.insert(0, str(ROOT / "08-guided-project"))
 
 from pyspark.sql import SparkSession
 from project.pipeline import run_pipeline, write_combined_report
@@ -20,7 +20,7 @@ def main() -> None:
              .config("spark.sql.adaptive.enabled", "true")
              .config("spark.sql.session.timeZone", "UTC")
              .getOrCreate())
-    project_path = ROOT / "07-guided-project" / "project"
+    project_path = ROOT / "08-guided-project" / "project"
     expected = json.loads((project_path / "validation" / "expected_metrics.json").read_text(encoding="utf-8"))
     try:
         for run_id in ("run-001", "run-002", "run-003"):

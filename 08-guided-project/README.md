@@ -1,6 +1,6 @@
-# Section 07 — Guided e-commerce pipeline
+# Section 08 — Guided e-commerce pipeline
 
-[← Previous section](../06-advanced-dataframes-and-quality/README.md) · [Course syllabus](../README.md) · [Open project lab](LAB.ipynb) · [Project review](QUIZ.md)
+[← Previous section](../07-pyspark-optimizations/README.md) · [Course syllabus](../README.md) · [Open project lab](LAB.ipynb) · [Project review](QUIZ.md)
 
 ## DataFrame API and literal SQL
 

@@ -1,6 +1,6 @@
 # Section 06 — Set operations, pivot and data quality
 
-[← Previous section](../05-joins-and-parquet/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Project →](../07-guided-project/README.md)
+[← Previous section](../05-joins-and-parquet/README.md) · [Course syllabus](../README.md) · [Open lab](LAB.ipynb) · [Section quiz](QUIZ.md) · [Optimizations →](../07-pyspark-optimizations/README.md)
 
 ## Outcomes
 

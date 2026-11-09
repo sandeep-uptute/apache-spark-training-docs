@@ -90,7 +90,7 @@ Use `try_cast`, as shown in Section 03, so malformed values can be classified.
 
 ### Output already exists
 
-The course notebooks write only beneath `output/` and `07-guided-project/project/destination/`. Verify the destination before running a cell that uses overwrite mode.
+The course notebooks write only beneath `output/` and `08-guided-project/project/destination/`. Verify the destination before running a cell that uses overwrite mode.
 
 ### Several Spark sessions are active
 

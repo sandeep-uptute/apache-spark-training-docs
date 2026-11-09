@@ -96,16 +96,28 @@ df.withColumn("rank", F.rank().over(rank_window))
 df.withColumn("dense_rank", F.dense_rank().over(rank_window))
 ```
 
-## Partition and cache
+## Partition, persistence and AQE
 
 ```python
+df.rdd.getNumPartitions()
 df.repartition(8, "category")
 df.coalesce(2)
 
 reused = df.cache()
 reused.count()       # materialize
 reused.unpersist()
+
+from pyspark import StorageLevel
+reused = df.persist(StorageLevel.MEMORY_AND_DISK)
+
+spark.conf.set("spark.sql.adaptive.enabled", "true")
+spark.conf.set("spark.sql.adaptive.coalescePartitions.enabled", "true")
+spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+
+df.explain("formatted")
 ```
+
+Use `repartition` to redistribute; use `coalesce` mainly to reduce partitions. Cache only an expensive result that will be reused, materialize it with an action, then unpersist it.
 
 ## Write and read back
 
@@ -137,10 +149,10 @@ path → schema → preview → stage counts → reject reasons
 ## Project outputs
 
 ```text
-07-guided-project/project/destination/curated_sales/
-07-guided-project/project/destination/rejected_records/
-07-guided-project/project/destination/audit/
-07-guided-project/project/reports/
+08-guided-project/project/destination/curated_sales/
+08-guided-project/project/destination/rejected_records/
+08-guided-project/project/destination/audit/
+08-guided-project/project/reports/
 ```
 
 Expected combined project output: **21 accepted sales · 103,813.00 revenue units**.
