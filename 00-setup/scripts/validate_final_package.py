@@ -27,13 +27,22 @@ def row_count(path: Path, delimiter: str = ",") -> int:
 def validate_notebook(path: Path) -> None:
     book = json.loads(path.read_text(encoding="utf-8"))
     assert book.get("nbformat") == 4 and book.get("cells"), path
+    code_sources = []
     for index, cell in enumerate(book["cells"], start=1):
         if cell.get("cell_type") == "code":
             source = "".join(cell.get("source", []))
+            code_sources.append(source)
             ast.parse(source, filename=f"{path.name}:cell{index}")
-            assert "SparkSession.builder" in source, f"Code cell {index} is not standalone: {path}"
             forbidden = ("training_lib", "project.pipeline", "sys.path", "Path.cwd")
             assert not any(term in source for term in forbidden), f"Hidden setup/helper found in {path}:cell{index}"
+    assert len(code_sources) == 6, f"Expected one setup plus five activities: {path}"
+    assert sum("SparkSession.builder" in source for source in code_sources) == 1, f"Expected one Spark session: {path}"
+    assert "SparkSession.builder" in code_sources[0], f"First code cell must create Spark: {path}"
+    text = path.read_text(encoding="utf-8")
+    if path.parent.name == "07-guided-project":
+        assert text.count("## Stage ") >= 5, f"Expected five project stages: {path}"
+    else:
+        assert text.count("## Exercise ") >= 5, f"Expected five exercises: {path}"
 
 
 def main() -> None:

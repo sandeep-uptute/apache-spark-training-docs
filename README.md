@@ -38,7 +38,7 @@ This course follows one continuous path from Spark fundamentals to a complete mu
 3. Answer the section quiz without running additional code.
 4. Continue to the next numbered section.
 
-Every lab exercise includes its own imports, Spark session and input setup. You can restart the kernel and run any individual exercise without executing earlier exercises.
+Each section begins with one Spark session setup cell. Run it once, then complete the five exercises in that section. Every exercise creates or reads its own input data, so it does not depend on the result of an earlier exercise.
 
 Start Jupyter from this folder so that all relative paths resolve correctly:
 
