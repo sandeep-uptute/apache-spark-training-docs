@@ -17,6 +17,9 @@ SECTIONS = [
     "06-advanced-dataframes-and-quality",
     "07-pyspark-optimizations",
     "08-guided-project",
+    "09-null-handling",
+    "10-intermediate-pyspark-exercises",
+    "11-fulfilment-matplotlib-project",
 ]
 LAB_SECTIONS = [section for section in SECTIONS if section != "07-pyspark-optimizations"]
 
@@ -40,7 +43,7 @@ def validate_notebook(path: Path) -> None:
     assert sum("SparkSession.builder" in source for source in code_sources) == 1, f"Expected one Spark session: {path}"
     assert "SparkSession.builder" in code_sources[0], f"First code cell must create Spark: {path}"
     text = path.read_text(encoding="utf-8")
-    if path.parent.name == "08-guided-project":
+    if path.parent.name in {"08-guided-project", "11-fulfilment-matplotlib-project"}:
         activity_count = text.count("## Stage ")
         assert activity_count >= 5, f"Expected five project stages: {path}"
     else:
@@ -87,6 +90,10 @@ def main() -> None:
         ROOT / "08-guided-project" / "project" / "pipeline.py",
         ROOT / "08-guided-project" / "project" / "run_config.json",
         ROOT / "08-guided-project" / "project" / "validation" / "expected_metrics.json",
+        ROOT / "11-fulfilment-matplotlib-project" / "project" / "reference" / "warehouses.csv",
+        ROOT / "11-fulfilment-matplotlib-project" / "project" / "reference" / "carriers.json",
+        ROOT / "11-fulfilment-matplotlib-project" / "project" / "run_config.json",
+        ROOT / "11-fulfilment-matplotlib-project" / "project" / "validation" / "expected_metrics.json",
     ])
     missing = [str(path.relative_to(ROOT)) for path in required if not path.is_file()]
     assert not missing, f"Missing files: {missing}"
@@ -114,6 +121,20 @@ def main() -> None:
     for required_term in ("unionByName", "intersect", "exceptAll", ".pivot(", "row_number", "dense_rank", "rowsBetween"):
         assert required_term in advanced_lab, f"Missing advanced operation: {required_term}"
 
+    null_lab = (ROOT / "09-null-handling" / "LAB.ipynb").read_text(encoding="utf-8")
+    assert null_lab.count("## Exercise ") >= 8
+    for required_term in ("isNull", "dropna", "fillna", "coalesce", "isnan", "ignorenulls", "rowsBetween"):
+        assert required_term in null_lab, f"Missing null-handling operation: {required_term}"
+
+    intermediate_lab = (ROOT / "10-intermediate-pyspark-exercises" / "LAB.ipynb").read_text(encoding="utf-8")
+    assert intermediate_lab.count("## Exercise ") >= 10
+    for required_term in ("explode", "row_number", "lag", "dense_rank", "left_anti", "full", "eqNullSafe"):
+        assert required_term in intermediate_lab, f"Missing intermediate operation: {required_term}"
+
+    matplotlib_lab = (ROOT / "11-fulfilment-matplotlib-project" / "LAB.ipynb").read_text(encoding="utf-8")
+    for required_term in ("matplotlib", "plt.subplots", "savefig", "run-001-dashboard.png", "run-002-dashboard.png", "run-003-dashboard.png", "all-runs-dashboard.png"):
+        assert required_term in matplotlib_lab, f"Missing Matplotlib project operation: {required_term}"
+
     ast.parse((ROOT / "08-guided-project" / "project" / "pipeline.py").read_text(encoding="utf-8"), filename="pipeline.py")
     json.loads((ROOT / "08-guided-project" / "project" / "run_config.json").read_text(encoding="utf-8"))
     json.loads((ROOT / "08-guided-project" / "project" / "validation" / "expected_metrics.json").read_text(encoding="utf-8"))
@@ -124,16 +145,23 @@ def main() -> None:
     assert sum(1 for line in (source / "run-002" / "transactions.json").read_text().splitlines() if line) == 10
     assert row_count(source / "run-003" / "transactions.tsv", "\t") == 9
 
+    fulfilment = ROOT / "11-fulfilment-matplotlib-project" / "project"
+    json.loads((fulfilment / "run_config.json").read_text(encoding="utf-8"))
+    json.loads((fulfilment / "validation" / "expected_metrics.json").read_text(encoding="utf-8"))
+    assert row_count(fulfilment / "source" / "run-001" / "shipments.csv") == 8
+    assert sum(1 for line in (fulfilment / "source" / "run-002" / "shipments.json").read_text().splitlines() if line) == 10
+    assert row_count(fulfilment / "source" / "run-003" / "shipments.tsv", "\t") == 8
+
     banned = re.compile(
         r"participant exercise|topic-wise learner|trainer copy|trainer-only|"
         r"useful for teaching|small teaching sample|ask learners",
         re.IGNORECASE,
     )
-    checked = list(ROOT.rglob("*.md")) + list(ROOT.glob("0*-*/LAB.ipynb")) + [ROOT / "07-pyspark-optimizations" / "GUIDED_DEMOS.ipynb"]
+    checked = list(ROOT.rglob("*.md")) + list(ROOT.glob("*-*/LAB.ipynb")) + [ROOT / "07-pyspark-optimizations" / "GUIDED_DEMOS.ipynb"]
     violations = [str(path.relative_to(ROOT)) for path in checked if banned.search(path.read_text(encoding="utf-8"))]
     assert not violations, f"Non-student-facing wording found in: {violations}"
 
-    print("COURSE PACKAGE PASS: section notes, paired labs, optimization demonstrations, quizzes, data and project files are valid")
+    print("COURSE PACKAGE PASS: section notes, paired labs, optimization demonstrations, quizzes, both projects and report definitions are valid")
 
 
 if __name__ == "__main__":

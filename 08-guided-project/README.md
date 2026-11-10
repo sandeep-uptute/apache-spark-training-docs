@@ -88,3 +88,5 @@ Each run overwrites only its own `run_id` path. Repeating run-002 must leave the
 
 Open [LAB.ipynb](LAB.ipynb) and run every cell in order. The notebook displays intermediate validation results, all run reports, the replay check and the final plan.
 
+Continue with the optional extension track at [Section 09 — Handling null and missing values](../09-null-handling/README.md).
+

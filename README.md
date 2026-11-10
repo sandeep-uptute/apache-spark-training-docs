@@ -15,6 +15,9 @@ This course follows one continuous path from Spark fundamentals to a complete mu
 | 06 | [Notes](06-advanced-dataframes-and-quality/README.md) · [Lab](06-advanced-dataframes-and-quality/LAB.ipynb) · [Quiz](06-advanced-dataframes-and-quality/QUIZ.md) | Use set operations, pivot, quality rules, plans and window analytics |
 | 07 | [Optimization notes](07-pyspark-optimizations/README.md) · [Guided demonstrations](07-pyspark-optimizations/GUIDED_DEMOS.ipynb) · [Knowledge check](07-pyspark-optimizations/QUIZ.md) | Explain partitions, AQE, persistence and common tuning choices |
 | 08 | [Project notes](08-guided-project/README.md) · [Project lab](08-guided-project/LAB.ipynb) · [Project review](08-guided-project/QUIZ.md) | Run and verify the complete pipeline |
+| 09 | [Null-handling notes](09-null-handling/README.md) · [Lab](09-null-handling/LAB.ipynb) · [Knowledge check](09-null-handling/QUIZ.md) | Handle nulls, NaN values and null-aware windows |
+| 10 | [Intermediate notes](10-intermediate-pyspark-exercises/README.md) · [Ten-exercise lab](10-intermediate-pyspark-exercises/LAB.ipynb) · [Knowledge check](10-intermediate-pyspark-exercises/QUIZ.md) | Solve multi-step intermediate and difficult transformations |
+| 11 | [Fulfilment project notes](11-fulfilment-matplotlib-project/README.md) · [Project notebook](11-fulfilment-matplotlib-project/LAB.ipynb) · [Project review](11-fulfilment-matplotlib-project/QUIZ.md) | Build a multi-run pipeline and save Matplotlib dashboards |
 
 ## Schedule
 
@@ -33,6 +36,8 @@ This course follows one continuous path from Spark fundamentals to a complete mu
 | 12:20–2:20 | Section 08 — Guided project |
 | 2:20–2:30 | Final review |
 
+Sections 09–11 form an extension track outside the core eight-hour schedule. They can be used for additional guided practice, assignments or a second workshop day.
+
 ## How to work through each section
 
 1. Read the section notes.
@@ -49,5 +54,5 @@ Start Jupyter from this folder so that all relative paths resolve correctly:
 bash 00-setup/scripts/launch_jupyter.sh
 ```
 
-The final project processes CSV, JSON and TSV batches, writes partitioned Parquet, records rejected rows and audit metrics, produces visual reports, and verifies that a repeated run does not duplicate accepted output.
+Section 08 completes the core workshop with an e-commerce sales pipeline. The extension track adds focused null handling, ten integrated exercises and a second multi-run fulfilment project whose dashboards are saved as Matplotlib PNG files.
 

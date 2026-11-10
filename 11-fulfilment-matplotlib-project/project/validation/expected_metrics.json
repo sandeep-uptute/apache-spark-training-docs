@@ -1,0 +1,41 @@
+{
+  "run-001": {
+    "raw_rows": 8,
+    "duplicate_rows": 0,
+    "quality_rejected_rows": 0,
+    "non_delivered_rows": 2,
+    "reference_rejected_rows": 0,
+    "accepted_shipments": 6,
+    "on_time_shipments": 4,
+    "late_shipments": 2,
+    "shipping_cost": "855.00"
+  },
+  "run-002": {
+    "raw_rows": 10,
+    "duplicate_rows": 1,
+    "quality_rejected_rows": 3,
+    "non_delivered_rows": 1,
+    "reference_rejected_rows": 2,
+    "accepted_shipments": 3,
+    "on_time_shipments": 2,
+    "late_shipments": 1,
+    "shipping_cost": "450.00"
+  },
+  "run-003": {
+    "raw_rows": 8,
+    "duplicate_rows": 0,
+    "quality_rejected_rows": 0,
+    "non_delivered_rows": 2,
+    "reference_rejected_rows": 0,
+    "accepted_shipments": 6,
+    "on_time_shipments": 3,
+    "late_shipments": 3,
+    "shipping_cost": "985.00"
+  },
+  "all-runs": {
+    "accepted_shipments": 15,
+    "on_time_shipments": 9,
+    "late_shipments": 6,
+    "shipping_cost": "2290.00"
+  }
+}

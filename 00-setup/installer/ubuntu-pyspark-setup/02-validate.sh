@@ -22,11 +22,12 @@ from importlib.metadata import version
 from packaging.version import Version
 assert Version('4.0') <= Version(version('jupyterlab')) < Version('5.0')
 assert Version('6.0') <= Version(version('ipykernel')) < Version('8.0')
-import jupyterlab, ipykernel
+assert Version('3.8') <= Version(version('matplotlib')) < Version('4.0')
+import jupyterlab, ipykernel, matplotlib
 from jupyter_client.kernelspec import KernelSpecManager
 ks = KernelSpecManager(kernel_dirs=[__import__('sys').prefix + '/share/jupyter/kernels']).get_kernel_spec('pyspark-412')
 assert ks.argv[0] == __import__('sys').executable, (ks.argv, __import__('sys').executable)
-print('[PASS] JupyterLab and registered PySpark kernel')
+print('[PASS] JupyterLab, Matplotlib and registered PySpark kernel')
 PYCODE
 "$JAVA_HOME/bin/java" -version
 "$VENV/bin/python" "$SCRIPT_DIR/validate_spark.py"

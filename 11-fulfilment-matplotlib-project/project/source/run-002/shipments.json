@@ -1,0 +1,10 @@
+{"shipment_id":"S009","order_date":"2026-10-08","warehouse_id":"W01","carrier_id":"C02","promised_date":"2026-10-12","delivered_date":"2026-10-13","shipping_cost":"140.00","package_weight":"2.0","status":"DELIVERED"}
+{"shipment_id":"S010","order_date":"2026-10-09","warehouse_id":"W02","carrier_id":"C03","promised_date":"2026-10-13","delivered_date":"2026-10-12","shipping_cost":"210.00","package_weight":"3.5","status":"DELIVERED"}
+{"shipment_id":"S011","order_date":"2026-10-10","warehouse_id":"W03","carrier_id":"C01","promised_date":"2026-10-14","delivered_date":"2026-10-14","shipping_cost":"100.00","package_weight":"1.8","status":"DELIVERED"}
+{"shipment_id":"S011","order_date":"2026-10-10","warehouse_id":"W03","carrier_id":"C01","promised_date":"2026-10-14","delivered_date":"2026-10-14","shipping_cost":"100.00","package_weight":"1.8","status":"DELIVERED"}
+{"shipment_id":"S012","order_date":"bad-date","warehouse_id":"W01","carrier_id":"C01","promised_date":"2026-10-15","delivered_date":"2026-10-15","shipping_cost":"115.00","package_weight":"2.1","status":"DELIVERED"}
+{"shipment_id":"S013","order_date":"2026-10-11","warehouse_id":"W02","carrier_id":"C02","promised_date":"2026-10-16","delivered_date":"2026-10-16","shipping_cost":"-50.00","package_weight":"2.4","status":"DELIVERED"}
+{"shipment_id":"S014","order_date":"2026-10-12","warehouse_id":"W99","carrier_id":"C01","promised_date":"2026-10-17","delivered_date":"2026-10-17","shipping_cost":"130.00","package_weight":"2.7","status":"DELIVERED"}
+{"shipment_id":"S015","order_date":"2026-10-13","warehouse_id":"W03","carrier_id":"C99","promised_date":"2026-10-18","delivered_date":"2026-10-18","shipping_cost":"175.00","package_weight":"3.2","status":"DELIVERED"}
+{"shipment_id":"S016","order_date":"2026-10-14","warehouse_id":"W01","carrier_id":"C02","promised_date":"2026-10-19","delivered_date":null,"shipping_cost":"145.00","package_weight":"2.9","status":"IN_TRANSIT"}
+{"shipment_id":"S017","order_date":"2026-10-15","warehouse_id":"W02","carrier_id":"C03","promised_date":"2026-10-20","delivered_date":null,"shipping_cost":"205.00","package_weight":"3.8","status":"DELIVERED"}

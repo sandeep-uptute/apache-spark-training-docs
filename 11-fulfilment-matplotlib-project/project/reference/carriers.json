@@ -1,0 +1,3 @@
+{"carrier_id":"C01","carrier_name":"SwiftShip","service_type":"STANDARD"}
+{"carrier_id":"C02","carrier_name":"RoadRunner","service_type":"GROUND"}
+{"carrier_id":"C03","carrier_name":"AirBox","service_type":"EXPRESS"}

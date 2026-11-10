@@ -1,6 +1,6 @@
 # Ubuntu PySpark 4.1.4 installer
 
-Target: Ubuntu x86_64 with **Python 3.12.x already installed**. Installs OpenJDK 17 and `python3.12-venv` via apt only when needed. Installs PySpark 4.1.4 plus JupyterLab 4 and a dedicated notebook kernel in an isolated `~/spark-projects/spark-env` virtual environment. Standalone Hadoop, `winutils.exe`, and `hadoop.dll` are not required for local exercises.
+Target: Ubuntu x86_64 with **Python 3.12.x already installed**. Installs OpenJDK 17 and `python3.12-venv` via apt only when needed. Installs PySpark 4.1.4, JupyterLab 4, Matplotlib and a dedicated notebook kernel in an isolated `~/spark-projects/spark-env` virtual environment. Standalone Hadoop, `winutils.exe`, and `hadoop.dll` are not required for local exercises.
 
 ## One-command setup
 
@@ -57,7 +57,7 @@ Bash syntax and Python compilation can be verified offline. Full JVM/Spark integ
 ## Notebook workflow
 
 - Run `bash 04-start-jupyter.sh`, then open the tokenized localhost URL printed in the terminal (or paste it into your browser). Keep that terminal running. Ctrl+C stops JupyterLab.
-- Pick kernel **PySpark 4.1.4 (Python 3.12)**. Open `example_pyspark.ipynb` from this extracted setup folder or copy it into `~/spark-projects/notebooks/`.
+- Pick kernel **PySpark 4.1.4 (Python 3.12)**. This kernel also contains Matplotlib for the saved-report project. Open `example_pyspark.ipynb` from this extracted setup folder or copy it into `~/spark-projects/notebooks/`.
 - Notebooks use the same `~/spark-projects/spark-env` environment as the PySpark shell. No manual `source .../activate` is needed when using either launcher.
 - Jupyter notebooks do not automatically supply a `spark` variable: create a `SparkSession` at the start of each notebook (shown in example).
 - Launch notebook and shell as separate processes. For limited-memory Ubuntu machines, stop one before doing large Spark jobs in the other.

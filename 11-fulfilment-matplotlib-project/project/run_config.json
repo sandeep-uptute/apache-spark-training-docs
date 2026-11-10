@@ -1,0 +1,7 @@
+{
+  "runs": [
+    {"run_id": "run-001", "format": "csv", "path": "source/run-001/shipments.csv"},
+    {"run_id": "run-002", "format": "json", "path": "source/run-002/shipments.json"},
+    {"run_id": "run-003", "format": "tsv", "path": "source/run-003/shipments.tsv"}
+  ]
+}

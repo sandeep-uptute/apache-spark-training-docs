@@ -157,3 +157,31 @@ path → schema → preview → stage counts → reject reasons
 
 Expected combined project output: **21 accepted sales · 103,813.00 revenue units**.
 
+## Matplotlib report output
+
+Aggregate in Spark before collecting chart data:
+
+```python
+chart_rows = (df.groupBy("category")
+              .agg(F.sum("revenue").alias("revenue"))
+              .orderBy("category")
+              .collect())
+
+import matplotlib.pyplot as plt
+figure, axis = plt.subplots(figsize=(8, 4))
+axis.bar([row["category"] for row in chart_rows],
+         [float(row["revenue"]) for row in chart_rows])
+figure.tight_layout()
+figure.savefig(report_path, dpi=150, bbox_inches="tight")
+plt.close(figure)
+```
+
+Section 11 report paths:
+
+```text
+11-fulfilment-matplotlib-project/project/reports/run-001-dashboard.png
+11-fulfilment-matplotlib-project/project/reports/run-002-dashboard.png
+11-fulfilment-matplotlib-project/project/reports/run-003-dashboard.png
+11-fulfilment-matplotlib-project/project/reports/all-runs-dashboard.png
+```
+

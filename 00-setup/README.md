@@ -13,6 +13,7 @@ The environment is prepared before the course begins. Use this page to verify it
 | Python | 3.12.x |
 | PySpark | 4.1.4 |
 | JupyterLab | 4.x |
+| Matplotlib | Available to the PySpark notebook kernel |
 | Spark master | `local[2]` |
 
 ## Verify the environment
@@ -23,6 +24,7 @@ From the course root:
 java -version
 python3.12 --version
 python3.12 -c "import pyspark; print(pyspark.__version__)"
+python3.12 -c "import matplotlib; print(matplotlib.__version__)"
 python3.12 00-setup/scripts/validate_final_package.py
 python3.12 00-setup/scripts/smoke_test.py
 ```
@@ -88,9 +90,13 @@ Stop Jupyter and restart it from the course root with `00-setup/scripts/launch_j
 
 Use `try_cast`, as shown in Section 03, so malformed values can be classified.
 
+### Matplotlib cannot be imported
+
+Rerun `00-setup/installer/ubuntu-pyspark-setup/01-install.sh` in the prepared environment. It verifies Matplotlib in the same virtual environment used by the PySpark notebook kernel.
+
 ### Output already exists
 
-The course notebooks write only beneath `output/` and `08-guided-project/project/destination/`. Verify the destination before running a cell that uses overwrite mode.
+The course notebooks write only beneath `output/`, `08-guided-project/project/destination/` and `11-fulfilment-matplotlib-project/project/`. Verify the destination before running a cell that uses overwrite mode.
 
 ### Several Spark sessions are active
 

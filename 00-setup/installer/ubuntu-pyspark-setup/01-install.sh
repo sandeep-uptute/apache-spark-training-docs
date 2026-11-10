@@ -86,14 +86,15 @@ from importlib.metadata import version
 from packaging.version import Version
 assert Version('4.0') <= Version(version('jupyterlab')) < Version('5.0')
 assert Version('6.0') <= Version(version('ipykernel')) < Version('8.0')
+assert Version('3.8') <= Version(version('matplotlib')) < Version('4.0')
 PYCODE
 }
 if notebook_ok; then
-  info 'JupyterLab and IPython kernel already installed; skipping download.'
+  info 'JupyterLab, IPython kernel and Matplotlib already installed; skipping download.'
 else
-  info 'Installing/resuming JupyterLab and IPython kernel in the same Spark venv.'
-  "$VENV/bin/python" -m pip install --disable-pip-version-check 'jupyterlab>=4,<5' 'ipykernel>=6,<8'
-  notebook_ok || fail 'JupyterLab/ipykernel installation check failed.'
+  info 'Installing/resuming JupyterLab, IPython kernel and Matplotlib in the same Spark venv.'
+  "$VENV/bin/python" -m pip install --disable-pip-version-check 'jupyterlab>=4,<5' 'ipykernel>=6,<8' 'matplotlib>=3.8,<4'
+  notebook_ok || fail 'JupyterLab/ipykernel/Matplotlib installation check failed.'
 fi
 
 # Register an explicit, named kernel within the virtual environment.
@@ -116,7 +117,7 @@ info 'Running end-to-end filesystem read/write tests (fresh temporary files).'
 
 SPARK_LAB_DIR="$WORKSPACE" bash "$SCRIPT_DIR/02-validate.sh"
 # Status only written after successful validation; actual state is always checked on rerun.
-printf 'Spark=%s\nJava=17\nPython=3.12\nValidation=passed\n' "$SPARK_VERSION" > "$WORKSPACE/.pyspark-setup-status"
+printf 'Spark=%s\nJava=17\nPython=3.12\nMatplotlib=installed\nValidation=passed\n' "$SPARK_VERSION" > "$WORKSPACE/.pyspark-setup-status"
 info 'SUCCESS: Ready for PySpark exercises.'
 printf 'Start shell: bash %q\n' "$SCRIPT_DIR/03-start-pyspark.sh"
 printf 'Start JupyterLab: bash %q\n' "$SCRIPT_DIR/04-start-jupyter.sh"
